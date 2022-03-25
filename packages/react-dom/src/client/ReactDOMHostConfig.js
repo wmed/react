@@ -494,7 +494,11 @@ export function appendChildToContainer(
     parentNode.insertBefore(child, container);
   } else {
     parentNode = container;
-    parentNode.appendChild(child);
+    if (parentNode === document) {
+      parentNode.firstElementChild.replaceWith(child)
+    } else {
+      parentNode.appendChild(child);
+    }
   }
   // This container might be used for a portal.
   // If something inside a portal is clicked, that click should bubble
